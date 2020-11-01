@@ -1,28 +1,38 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="app">
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import { eventBus } from './main'
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  created() {
+    document.addEventListener('scroll', this.postScrollPosition)
+  },
+  methods: {
+    postScrollPosition() {
+      if (window.scrollY > 2) {
+        eventBus.$emit('scroll_down', true)
+      } else {
+        eventBus.$emit('scroll_down', false)
+      }
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+  margin: 0;
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+body {
+  background-color: #141414;
 }
 </style>
